@@ -1,0 +1,30 @@
+{
+  "name": "datenow-ts",
+  "version": "1.2.0",
+  "description": "Package for working with dates and times in JavaScript and TypeScript",
+  "license": "MIT",
+  "main": "lib/main.js",
+  "types": "lib/main.d.ts",
+  "author": "Lea <privat@lea-moser.ch> (https://www.lea-moser.ch)",
+  "files": [
+    "lib/**/*"
+  ],
+  "scripts": {
+    "test": "./node_modules/.bin/jest --config jestconfig.json",
+    "debug": "tsc && node lib/main.js",
+    "build": "tsc",
+    "publish": "npm publish"
+  },
+  "keywords": [
+    "date",
+    "time",
+    "javascript",
+    "new Date"
+  ],
+  "devDependencies": {
+    "@types/jest": "^27.4.0",
+    "jest": "^27.5.1",
+    "ts-jest": "^27.1.3",
+    "typescript": "^4.5.5"
+  }
+}
