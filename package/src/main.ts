@@ -34,7 +34,6 @@ export const format = {
         return Date.parse(date.toString())
     },
     toTime: (date: Date, format: string) :string => {
-        console.log()
         const f: any = helper.formats.time
         const params: string[] = format.split('')
         let allowedSymbols = []
