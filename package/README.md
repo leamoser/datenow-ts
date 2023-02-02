@@ -1,80 +1,119 @@
 # datenow-ts
+![picture alt](https://img.shields.io/badge/Version-2.0.0-00b3b0?style=flat-square "Current Version")
+
 The pain of my life has been working with dates in JavaScript.
-That's why I wrote this little library, to help you working with dates and time in JavaScript and Typescript.
+That's why I wrote this little library, to help you working with dates and time in JavaScript and TypeScript.
 
 ### 💾 install
+
 **npm**:
+
 ```text
 npm i datenow-ts
 ```
 
 **yarn**:
+
 ```text
 yarn add datenow-ts
 ```
 
-### 🗜️ embed
-Add datenow-ts to your file by writing this line:
+### 🎳 test
+
+To check if datenow-ts is installed correctly, implement the check-function and run it.
+
 ```javascript
-const datenow = require('datenow-ts')
+const {check} = require('datenow-ts')
+check()
 ```
 
-### 🎳 testing
-To see if everything works, try the following command.
-You should see infos about the installed version in your console, if the package is installed correctly.
-```javascript
-datenow.check()
-```
+If you get a console message with infos about the package, everything is implemented correctly and you can start using
+the package.
+
 # 🏂 what you can do with datenow-ts
 
+> The whole package is destructured into six function groups you can use.
+> The following table explains all of the six groups.
+
+| group                   | what it does                                                                                            |
+|-------------------------|---------------------------------------------------------------------------------------------------------|
+| [``create``](#-create)  | Functions for creating dates in multiple ways.                                                          |
+| [``format`` ](#-format) | Functions for formatting dates in certain ways.                                                         |
+| [``get``](#-get)        | Functions for getting parts of a date, e.g. the month in a certain language.                            |
+| [``modify``](#-modify)  | Functions for modifying dates, e.g. adding x months to a date.                                          |
+| [``until``](#-until)    | Functions for calclating durations between two dates.                                                   |
+| [``span``](#-span)      | Functions for getting informations about the span between two dates, e.g. all months between two dates. |
+
 ## ✍️ create
-the base-command for functions falling under this category start with ``datenow.create.`` and are
-followed by the specific command. like so:
+
+To use the functions provided under this category, implement them as follows:
+
 ```javascript
-const date = datenow.create.dateNow()
+const {create} = require('datenow-ts')
 ```
+
+These are the functions you have at your disposal after implementing.
 
 | command                  | params                                                                  |
 |--------------------------|-------------------------------------------------------------------------|
 | ``dateNow()``            | -                                                                       |
-| ``dateByParams()``       | z.B. `{year: 2021, month: 2, day: 1, hours: 2, minutes: 1, seconds: 0}` |
+| ``dateByParams()``       | z.B. `{year: 2023, month: 1, day: 1, hours: 1, minutes: 1, seconds: 1}` |
 | ``dateByMilliseconds()`` | 1 / number / milliseconds from 1.1.1970                                 |
 | ``dateByDatestring()``   | z.B. `2021/03/05`                                                       |
 
-All the functions under this category return a datestring in the following format:
+All functions under this category return a datestring in the following format:
+
 ```text
-Sat Jan 01 2022 14:37:47 GMT+0100 (Mitteleuropäische Normalzeit)
+Sun Jan 01 2023 01:01:01 GMT+0100 (Mitteleuropäische Normalzeit)
+```
+
+### Example
+
+```javascript
+const {create} = require('datenow-ts')
+const date = create.dateByParams({year: 2023, month: 1, day: 1})
+console.log(date)
 ```
 
 ## 🤲 get
-the base-command for functions falling under this category start with ``datenow.get.`` and are
-followed by the specific command. like so:
+
+To use the functions provided under this category, implement them as follows:
+
 ```javascript
-const year = datenow.get.year(date)
+const {get} = require('datenow-ts')
 ```
 
-| command                 | eg. return                                                        |
-|-------------------------|-------------------------------------------------------------------|
-| ``year(date)``          | `2022`                                                            |
-| ``yearObject(date)``    | `{long: 2022, short: 22}`                                         |
-| ``monthIndex(date)``    | `0` for january                                                   |
-| ``monthObject(date)``   | `{index: 0, number: 1, short: 'Jan', long: 'January' }`           |
-| ``day(date)``           | `1`                                                               |
-| ``weekdayIndex(date)``  | `0` for sunday                                                    |
-| ``weekdayObject(date)`` | `{index: 0, indexStartingMonday: 6, short: 'Su', long: 'Sunday'}` |
-| ``hour(date)``          | `14` for 2 PM                                                     |
-| ``minute(date)``        | `32`                                                              |
-| ``second(date)``        | `19`                                                              |
-| ``millisecond(date)``   | `233`                                                             |
+These are the functions you have at your disposal after implementing.
+The parameter you pass to all these functions is a datestring (ideally created by a function from the ``create``
+section).
+
+| command                           | eg. return                                                         |
+|-----------------------------------|--------------------------------------------------------------------|
+| ``year(date)``                    | `2023`                                                             |
+| ``yearObject(date)``              | `{long: 2023, short: 23}`                                          |
+| ``monthIndex(date)``              | `0` for january                                                    |
+| ``monthObject(date, lang)``       | `{index: 0, number: 1, short: 'Jan', long: 'January' }`            |
+| ``calendarizedMonth(date, lang)`` | Returns an array with all days of the month the passed date is in. |
+| ``day(date)``                     | `1`                                                                |
+| ``weekdayIndex(date)``            | `0` for sunday                                                     |
+| ``weekdayObject(date, lang)``     | `{index: 0, indexStartingMonday: 6, short: 'Su', long: 'Sunday'}`  |
+| ``calendarWeek(prefix,date)``     | `KW 4`                                                             |
+| ``hour(date)``                    | `14` for 2 PM                                                      |
+| ``minute(date)``                  | `32`                                                               |
+| ``second(date)``                  | `19`                                                               |
+| ``millisecond(date)``             | `233`                                                              |
 
 ## 🎭 modify
-the base-command for functions falling under this category start with ``datenow.modify.`` and are
-followed by the specific command. like so:
+
+To use the functions provided under this category, implement them as follows:
+
 ```javascript
-const year = datenow.modify.year.changeTo(date, 1997)
+const {modify} = require('datenow-ts')
 ```
+
 In this modify-section, you have the same functionalities for every unit.
 All existing units are:
+
 - year
 - month
 - day
@@ -82,19 +121,28 @@ All existing units are:
 - minute
 - second
 
-All available actions are:
+All available actions are the following:
 
-| command                                                | params                           |
-|--------------------------------------------------------|----------------------------------|
-| ``datenow.modify.[unit].changeTo(date,newUnit)``       | date (datestring), unit (number) |
-| ``datenow.modify.[unit].add(date,numberOfUnits)``      | date (datestring), unit (number) |
-| ``datenow.modify.[unit].subtract(date,numberOfUnits)`` | date (datestring), unit (number) |
+| command                                        | params                           |
+|------------------------------------------------|----------------------------------|
+| ``modify.[unit].changeTo(date,newUnit)``       | date (datestring), unit (number) |
+| ``modify.[unit].add(date,numberOfUnits)``      | date (datestring), unit (number) |
+| ``modify.[unit].subtract(date,numberOfUnits)`` | date (datestring), unit (number) |
+
+### Example
+
+```javascript
+const {create, modify} = require('datenow-ts')
+const date = create.dateByParams({year: 2023, month: 1, day: 1})
+console.log('date 10 years in the future:', modify.year.add(date, 10))
+```
 
 ## 🎰 format
-the base-command for functions falling under this category start with ``datenow.format.`` and are
-followed by the specific command. like so:
+
+To use the functions provided under this category, implement them as follows:
+
 ```javascript
-const year = datenow.modify.format.toISO(date)
+const {format} = require('datenow-ts')
 ```
 
 The two simple commands are:
@@ -105,45 +153,137 @@ The two simple commands are:
 | ``toMilliseconds()`` | date (datestring) | `1641047269000`            |
 
 Then you have another two commands, which are a little more complex.
+
 ### toTime()
+
 ```javascript
-const date = datenow.create.dateNow()
-const formatedTime = datenow.format.toTime(date,'H:i')
-//returns 23:30
+// -> example
+const {create, format} = require('datenow-ts')
+const date = create.dateNow()
+const formatedTime = format.toTime(date, 'H:i')
+// -> returns 23:30
 ```
-As the first parameter you have to pass the datestring.
-Afterwards, you can pass the format you wish as a string.
-Reserved letters will be parsed, everything else will act as seperators.
+
+The first parameter is the datestring.
+As a second parameter you can pass the format you wish as a string.
+Reserved letters will be parsed, everything else will act as a seperator.
 
 *Reserved letters*
-- **H:** Hours
-- **i:** Minutes
-- **s:** Seconds
-- **v:** milliseconds
+
+- ``H`` Hours
+- ``i`` Minutes
+- ``s`` Seconds
+- ``v`` Milliseconds
 
 ### toDate()
+
 ```javascript
-const date = datenow.create.dateNow()
-const formatedDate = datenow.format.toDate(date,'d. F Y')
-//returns 1. January 2022
+// -> example 
+const {create, format} = require('datenow-ts')
+const date = create.dateNow()
+const formatedDate = format.toDate(date, 'd. F Y')
+// --> returns 1. January 2022
 ```
-As the first parameter you have to pass the datestring.
-Afterwards, you can pass the format you wish as a string.
+
+The first parameter is the datestring.
+As a second parameter you can pass the format you wish as a string.
 Reserved letters will be parsed, everything else will act as seperators.
 
 *Reserved letters*
-- **Y:** Year long
-- **y:** Year short
-- **F:** Month long
-- **M:** Month short
-- **m:** Month number
-- **d:** Day
-- **D:** Weekday short
-- **l:** Weekday long
+
+- ``Y`` Year long
+- ``y`` Year short
+- ``F`` Month long
+- ``M`` Month short
+- ``m`` Month number
+- ``d`` Day
+- ``D`` Weekday short
+- ``l`` Weekday long
+
+## 👵 until
+
+To use the functions provided under this category, implement them as follows:
+
+```javascript
+const {until} = require('datenow-ts')
+```
+
+You have six functions at your displosal in this section.
+They all take two datestrings as parameters.
+The first one is the start date, the second one the end date.
+
+To calculate the number of years between two days, this is your way to go:
+
+```javascript
+const {create, until} = require('datenow-ts');
+const from = create.dateNow()
+const to = create.dateByDatestring('2053-04-07')
+console.log('years beween:', until.years(from, to))
+```
+
+The exactly same syntax can be used with all the following units:
+
+- ``years``
+- ``days``
+- ``hours``
+- ``minutes``
+- ``seconds``
+- ``complete`` ➡️ This returns an object with all units combined.
+
+## 🪢 span
+
+To use the functions provided under this category, implement them as follows:
+
+```javascript
+const {span} = require('datenow-ts')
+```
+
+Functions under this category give you informations about the the time between two dates.
+For now, only two functions are implemented.
+
+### years(from, to)
+
+```javascript
+// -> example
+const {create, span} = require('datenow-ts')
+const from = create.dateNow()
+const to = create.dateByDatestring('2050-04-07')
+console.log('array with years between', span.years(from, to))
+// returns array with all years between -> [2023,2024,2025,...]
+```
+
+### months(from,to)
+
+```javascript
+// -> example
+const {create, span} = require('datenow-ts')
+const from = create.dateNow()
+const to = create.dateByDatestring('2024-04-07')
+console.log('array with months between', span.months(from, to))
+// returns array with all months between -> [ {index: 1, number: 2, short: 'Feb', long: 'February', year: 2023 }, {index: 2, number: 3, short: 'Mar', long: 'March', year: 2023 }, ... ] 
+```
+
+# 🌐 Translations
+
+The following languages are already implemented:
+
+| Language          | Language Code |
+|-------------------|---------------|
+| English (default) | en            |
+| Deutsch           | de            |
+| Français          | fr            |
+| Italiano          | it            |
+| Nederlands        | nl            |
+| Ελληνική          | el            |
+
+All functions that return anything where anything needs to be translated, the last parameter is the language code.
+If no language code is passed, the default language (in this case english) is set.
 
 # That's it...
+
 This package is a work in progress.
 Feedbacks or ideas for extensions are highly welcome!
+And if you want, you can also contribute to the package via GitHub.
 
 - Contact: [privat@lea-moser.ch](mailto:privat@lea-moser.ch)
 - My Website: [lea-moser.ch](https://www.lea-moser.ch)
