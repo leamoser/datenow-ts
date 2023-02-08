@@ -153,33 +153,34 @@ const get = {
     },
     calendarizedMonth: (date: Date, language: Languages = defaultLanguage): CalendarizedDate[] => {
         // --- reset date to first
-        modify.day.changeTo(date,1)
+        const resettedDate = modify.day.changeTo(date,1)
         let days: CalendarizedDate[] = []
-        const DAYSBEFORE = get.weekdayObject(date,language).indexStartingMonday
+        const DAYSBEFORE = get.weekdayObject(resettedDate,language).indexStartingMonday
         const MONTH = date.getMonth()
-        const fill = (filler: boolean, day: number, weekday: WeekdayObject): void => {
+        const fill = (filler: boolean, day: number, paddedDay: string, weekday: WeekdayObject): void => {
             days.push({
                 filler,
                 day,
+                paddedDay,
                 weekday
             })
         }
         // --- fillers before
-        if(date.getDate() === 1){
+        if(resettedDate.getDate() === 1){
             for(let i = 0; i < DAYSBEFORE; i++){
-                const DAYBEFORE = create.dateByMilliseconds(date.getTime() - ((DAYSBEFORE - i) * helper.milliseconds.day))
-                fill(true, DAYBEFORE.getDate(), get.weekdayObject(DAYBEFORE,language))
+                const DAYBEFORE = create.dateByMilliseconds(resettedDate.getTime() - ((DAYSBEFORE - i) * helper.milliseconds.day))
+                fill(true, DAYBEFORE.getDate(), helper.padTo2Digits(DAYBEFORE.getDate()), get.weekdayObject(DAYBEFORE,language))
             }
         }
         // --- actual dates
-        while(date.getMonth() === MONTH){
-            fill(false, date.getDate(), get.weekdayObject(date,language))
-            date.setDate(date.getDate() + 1)
+        while(resettedDate.getMonth() === MONTH){
+            fill(false, resettedDate.getDate(), helper.padTo2Digits(resettedDate.getDate()), get.weekdayObject(resettedDate,language))
+            resettedDate.setDate(resettedDate.getDate() + 1)
         }
         // --- fillers after
-        while(get.weekdayObject(date,language).indexStartingMonday !== 0){
-            fill(true, date.getDate(), get.weekdayObject(date,language))
-            date.setDate(date.getDate() + 1)
+        while(get.weekdayObject(resettedDate,language).indexStartingMonday !== 0){
+            fill(true, resettedDate.getDate(), helper.padTo2Digits(resettedDate.getDate()), get.weekdayObject(resettedDate,language))
+            resettedDate.setDate(resettedDate.getDate() + 1)
         }
         return days
     },
@@ -426,4 +427,4 @@ const check = () =>  {
 }
 
 // -> exports
-export { create, format, get, modify, until, span, check }
+export { create, format, get, modify, until, span, helper, check }

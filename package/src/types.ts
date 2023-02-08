@@ -48,6 +48,7 @@ export type Languages = 'en'|'de'|'fr'|'nl'|'it'|'el'
 export interface CalendarizedDate {
     filler: boolean,
     day: number,
+    paddedDay: string,
     weekday: WeekdayObject
 }
 export interface TimeDifference {
