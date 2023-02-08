@@ -1,6 +1,6 @@
 # datenow-ts
 
-![picture alt](https://img.shields.io/badge/Version-2.1.0-00b3b0?style=flat-square "Current Version")
+![picture alt](https://img.shields.io/badge/Version-2.1.1-00b3b0?style=flat-square "Current Version")
 
 The pain of my life has been working with dates in JavaScript.
 That's why I wrote this little library, to help you working with dates and time in JavaScript and TypeScript.
