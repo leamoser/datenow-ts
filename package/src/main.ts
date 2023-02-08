@@ -2,7 +2,7 @@ import { weekdays, weekdaysShort, months, monthsShort } from "./translations";
 import {
     CalendarizedDate,
     DateObjectParams,
-    Day,
+    Day, DayObject,
     Hour,
     Languages,
     Minute,
@@ -146,6 +146,7 @@ const get = {
         return {
             index: date.getMonth(),
             number: date.getMonth() + 1,
+            paddedNumber: helper.padTo2Digits(date.getMonth() + 1),
             short: helper.monthsShort(lang)[date.getMonth()],
             long: helper.months(lang)[date.getMonth()]
         }
@@ -184,6 +185,12 @@ const get = {
     },
     day: (date: Date): number => {
         return date.getDate()
+    },
+    dayObject: (date: Date): DayObject => {
+        return {
+            number: date.getDate(),
+            paddedNumber: helper.padTo2Digits(date.getDate())
+        }
     },
     weekdayIndex: (date: Date): number => {
         return date.getDay()
@@ -239,57 +246,40 @@ const get = {
 const modify = {
     year: {
         changeTo: (date: Date, year: Year) :Date => {
-            return new Date(date.setFullYear(year))
+            const dateCopy = new Date(date.valueOf());
+            return new Date(dateCopy.setFullYear(year))
         },
         add: (date: Date, numberOfYears: number) :Date => {
-            const NOW = get.year(date)
+            const dateCopy = new Date(date.valueOf());
+            const NOW = get.year(dateCopy)
             const AFTER = NOW + numberOfYears
-            return new Date(date.setFullYear(AFTER))
+            return new Date(dateCopy.setFullYear(AFTER))
         },
         subtract: (date: Date, numberOfYears: number) :Date => {
-            const NOW = get.year(date)
+            const dateCopy = new Date(date.valueOf());
+            const NOW = get.year(dateCopy)
             const AFTER = NOW - numberOfYears
-            return new Date(date.setFullYear(AFTER))
+            return new Date(dateCopy.setFullYear(AFTER))
         }
     },
     month: {
         changeTo: (date: Date, month: Month) :Date => {
-            return new Date(date.setMonth(month - 1))
+            const dateCopy = new Date(date.valueOf());
+            return new Date(dateCopy.setMonth(month - 1))
         },
         add: (date: Date, numberOfMonths: number) :Date => {
-            const MONTH_NOW = get.monthIndex(date)
-            const YEAR_NOW = get.year(date)
-            const MONTH_AFTER = MONTH_NOW + numberOfMonths <= 11 ? MONTH_NOW + numberOfMonths : (((MONTH_NOW + 1) + numberOfMonths) % 12) - 1
-            const YEAR_AFTER = MONTH_NOW + numberOfMonths <= 11 ? YEAR_NOW : YEAR_NOW + Math.floor(((MONTH_NOW + 1) + numberOfMonths) / 12)
-            return new Date(date.setFullYear(YEAR_AFTER,MONTH_AFTER))
+            const dateCopy = new Date(date.valueOf());
+            return new Date(dateCopy.setMonth(date.getMonth() + numberOfMonths));
         },
         subtract: (date: Date, numberOfMonths: number) :Date => {
-            const MONTH_NOW = get.monthIndex(date)
-            const YEAR_NOW = get.year(date)
-            let MONTH_AFTER, YEAR_AFTER
-            if(MONTH_NOW - numberOfMonths >= 0){
-                YEAR_AFTER = YEAR_NOW
-                MONTH_AFTER = MONTH_NOW - numberOfMonths
-            }else{
-                let minusYears = 0
-                let i = numberOfMonths
-                while(i >= 12){
-                    minusYears++
-                    i = i - 12
-                }
-                if(i < 12){
-                    minusYears++
-                    i = 12 - i
-                }
-                YEAR_AFTER = YEAR_NOW - minusYears
-                MONTH_AFTER = i + 1
-            }
-            return new Date(date.setFullYear(YEAR_AFTER,MONTH_AFTER))
+            const dateCopy = new Date(date.valueOf());
+            return new Date(dateCopy.setMonth(date.getMonth() - numberOfMonths));
         }
     },
     day: {
         changeTo: (date: Date, day: Day) :Date => {
-            return new Date(date.setDate(day))
+            const dateCopy = new Date(date.valueOf());
+            return new Date(dateCopy.setDate(day))
         },
         add: (date: Date, numberOfDays: number) :Date => {
             const NOW = format.toMilliseconds(date)
@@ -304,7 +294,8 @@ const modify = {
     },
     hour: {
         changeTo: (date: Date, hour: Hour) :Date => {
-            return new Date(date.setHours(hour))
+            const dateCopy = new Date(date.valueOf());
+            return new Date(dateCopy.setHours(hour))
         },
         add: (date: Date, numberOfHours: number) :Date => {
             const NOW = format.toMilliseconds(date)
@@ -319,7 +310,8 @@ const modify = {
     },
     minute: {
         changeTo: (date: Date, minute: Minute) :Date => {
-            return new Date(date.setMinutes(minute))
+            const dateCopy = new Date(date.valueOf());
+            return new Date(dateCopy.setMinutes(minute))
         },
         add: (date: Date, numberOfMinutes: number) :Date => {
             const NOW = format.toMilliseconds(date)
@@ -334,7 +326,8 @@ const modify = {
     },
     second: {
         changeTo: (date: Date, second: Second) :Date => {
-            return new Date(date.setSeconds(second))
+            const dateCopy = new Date(date.valueOf());
+            return new Date(dateCopy.setSeconds(second))
         },
         add: (date: Date, numberOfSeconds: number) :Date => {
             const NOW = format.toMilliseconds(date)
@@ -426,7 +419,7 @@ const span = {
  *@remarks Function to check if package is working
  */
 const check = () =>  {
-    console.log('🤝 datenow-ts 2.0.0 has sucessfully been installed')
+    console.log('🤝 datenow-ts 2.1.0 has sucessfully been installed')
     console.log('🫀 import a function group to start working with your dates')
     console.log('👀 explore everything datenow-ts has to offer by reading the docs')
     console.log('✉️ feedback: privat@lea-moser.ch')

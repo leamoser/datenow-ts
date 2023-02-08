@@ -1,5 +1,6 @@
 # datenow-ts
-![picture alt](https://img.shields.io/badge/Version-2.0.1-00b3b0?style=flat-square "Current Version")
+
+![picture alt](https://img.shields.io/badge/Version-2.1.0-00b3b0?style=flat-square "Current Version")
 
 The pain of my life has been working with dates in JavaScript.
 That's why I wrote this little library, to help you working with dates and time in JavaScript and TypeScript.
@@ -23,10 +24,11 @@ yarn add datenow-ts
 To check if datenow-ts is installed correctly, implement the check-function and run it.
 
 ```javascript
-const { check } = require('datenow-ts')
+const {check} = require('datenow-ts')
 check()
 // or
-import { check } from 'datenow-ts'
+import {check} from 'datenow-ts'
+
 check()
 ```
 
@@ -52,9 +54,9 @@ the package.
 To use the functions provided under this category, implement them as follows:
 
 ```javascript
-const { create } = require('datenow-ts')
+const {create} = require('datenow-ts')
 // or
-import { create } from 'datenow-ts'
+import {create} from 'datenow-ts'
 ```
 
 These are the functions you have at your disposal after implementing.
@@ -85,39 +87,40 @@ console.log(date)
 To use the functions provided under this category, implement them as follows:
 
 ```javascript
-const { get } = require('datenow-ts')
+const {get} = require('datenow-ts')
 // or
-import { get } from 'datenow-ts'
+import {get} from 'datenow-ts'
 ```
 
 These are the functions you have at your disposal after implementing.
 The parameter you pass to all these functions is a datestring (ideally created by a function from the ``create``
 section).
 
-| command                           | eg. return                                                         |
-|-----------------------------------|--------------------------------------------------------------------|
-| ``year(date)``                    | `2023`                                                             |
-| ``yearObject(date)``              | `{long: 2023, short: 23}`                                          |
-| ``monthIndex(date)``              | `0` for january                                                    |
-| ``monthObject(date, lang)``       | `{index: 0, number: 1, short: 'Jan', long: 'January' }`            |
-| ``calendarizedMonth(date, lang)`` | Returns an array with all days of the month the passed date is in. |
-| ``day(date)``                     | `1`                                                                |
-| ``weekdayIndex(date)``            | `0` for sunday                                                     |
-| ``weekdayObject(date, lang)``     | `{index: 0, indexStartingMonday: 6, short: 'Su', long: 'Sunday'}`  |
-| ``calendarWeek(prefix,date)``     | `KW 4`                                                             |
-| ``hour(date)``                    | `14` for 2 PM                                                      |
-| ``minute(date)``                  | `32`                                                               |
-| ``second(date)``                  | `19`                                                               |
-| ``millisecond(date)``             | `233`                                                              |
+| command                           | eg. return                                                                  |
+|-----------------------------------|-----------------------------------------------------------------------------|
+| ``year(date)``                    | `2023`                                                                      |
+| ``yearObject(date)``              | `{long: 2023, short: 23}`                                                   |
+| ``monthIndex(date)``              | `0` for january                                                             |
+| ``monthObject(date, lang)``       | `{index: 0, number: 1, paddedNumber: '01', short: 'Jan', long: 'January' }` |
+| ``calendarizedMonth(date, lang)`` | Returns an array with all days of the month the passed date is in.          |
+| ``day(date)``                     | `1`                                                                         |
+| ``dayObject(date)``               | `{ number: 1, paddedNumber: '01' }`                                         |
+| ``weekdayIndex(date)``            | `0` for sunday                                                              |
+| ``weekdayObject(date, lang)``     | `{index: 0, indexStartingMonday: 6, short: 'Su', long: 'Sunday'}`           |
+| ``calendarWeek(prefix,date)``     | `KW 4`                                                                      |
+| ``hour(date)``                    | `14` for 2 PM                                                               |
+| ``minute(date)``                  | `32`                                                                        |
+| ``second(date)``                  | `19`                                                                        |
+| ``millisecond(date)``             | `233`                                                                       |
 
 ## 🎭 modify
 
 To use the functions provided under this category, implement them as follows:
 
 ```javascript
-const { modify } = require('datenow-ts')
+const {modify} = require('datenow-ts')
 // or
-import { modify } from 'datenow-ts'
+import {modify} from 'datenow-ts'
 ```
 
 In this modify-section, you have the same functionalities for every unit.
@@ -151,9 +154,9 @@ console.log('date 10 years in the future:', modify.year.add(date, 10))
 To use the functions provided under this category, implement them as follows:
 
 ```javascript
-const { format } = require('datenow-ts')
+const {format} = require('datenow-ts')
 // or
-import { format } from 'datenow-ts'
+import {format} from 'datenow-ts'
 ```
 
 The two simple commands are:
@@ -169,7 +172,8 @@ Then you have another two commands, which are a little more complex.
 
 ```javascript
 // -> example
-import { create, format } from 'datenow-ts'
+import {create, format} from 'datenow-ts'
+
 const date = create.dateNow()
 const formatedTime = format.toTime(date, 'H:i')
 // -> returns 23:30
@@ -190,7 +194,8 @@ Reserved letters will be parsed, everything else will act as a seperator.
 
 ```javascript
 // -> example 
-import { create, format } from 'datenow-ts'
+import {create, format} from 'datenow-ts'
+
 const date = create.dateNow()
 const formatedDate = format.toDate(date, 'd. F Y')
 // --> returns 1. January 2022
@@ -216,9 +221,9 @@ Reserved letters will be parsed, everything else will act as seperators.
 To use the functions provided under this category, implement them as follows:
 
 ```javascript
-const { until } = require('datenow-ts')
+const {until} = require('datenow-ts')
 // or
-import { until } from 'datenow-ts'
+import {until} from 'datenow-ts'
 ```
 
 You have six functions at your displosal in this section.
@@ -248,9 +253,9 @@ The exactly same syntax can be used with all the following units:
 To use the functions provided under this category, implement them as follows:
 
 ```javascript
-const { span } = require('datenow-ts')
+const {span} = require('datenow-ts')
 // or
-import { span } from 'datenow-ts'
+import {span} from 'datenow-ts'
 ```
 
 Functions under this category give you informations about the the time between two dates.

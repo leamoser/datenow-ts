@@ -1,6 +1,6 @@
 {
   "name": "datenow-ts",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Package for working with dates and times in JavaScript and TypeScript",
   "license": "MIT",
   "main": "lib/main.js",
@@ -10,7 +10,7 @@
     "lib/**/*"
   ],
   "repository": {
-    "directory": "https://github.com/leamoser/datenow-ts",
+    "directory": "https://github.com/leamoser/datenow-ts.git",
     "type": "git"
   },
   "scripts": {

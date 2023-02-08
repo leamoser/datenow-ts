@@ -17,11 +17,16 @@ export interface YearObject{
     long: number,
     short: number
 }
-export interface MonthObject{
+export interface MonthObject {
     index: number,
     number: number,
     short: string,
-    long: string
+    long: string,
+    paddedNumber: string
+}
+export interface DayObject {
+    number: number,
+    paddedNumber: string
 }
 export interface WeekdayObject{
     index: number,
