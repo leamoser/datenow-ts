@@ -47,7 +47,7 @@ export type Languages = 'en'|'de'|'fr'|'nl'|'it'|'el'
 // --> functionalities
 export interface CalendarizedDate {
     filler: boolean,
-    day: number,
+    day: Day,
     paddedDay: string,
     weekday: WeekdayObject
 }

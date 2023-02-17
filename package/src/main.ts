@@ -157,7 +157,7 @@ const get = {
         let days: CalendarizedDate[] = []
         const DAYSBEFORE = get.weekdayObject(resettedDate,language).indexStartingMonday
         const MONTH = date.getMonth()
-        const fill = (filler: boolean, day: number, paddedDay: string, weekday: WeekdayObject): void => {
+        const fill = (filler: boolean, day: Day, paddedDay: string, weekday: WeekdayObject): void => {
             days.push({
                 filler,
                 day,
@@ -169,17 +169,17 @@ const get = {
         if(resettedDate.getDate() === 1){
             for(let i = 0; i < DAYSBEFORE; i++){
                 const DAYBEFORE = create.dateByMilliseconds(resettedDate.getTime() - ((DAYSBEFORE - i) * helper.milliseconds.day))
-                fill(true, DAYBEFORE.getDate(), helper.padTo2Digits(DAYBEFORE.getDate()), get.weekdayObject(DAYBEFORE,language))
+                fill(true, DAYBEFORE.getDate() as Day, helper.padTo2Digits(DAYBEFORE.getDate()), get.weekdayObject(DAYBEFORE,language))
             }
         }
         // --- actual dates
         while(resettedDate.getMonth() === MONTH){
-            fill(false, resettedDate.getDate(), helper.padTo2Digits(resettedDate.getDate()), get.weekdayObject(resettedDate,language))
+            fill(false, resettedDate.getDate() as Day, helper.padTo2Digits(resettedDate.getDate()), get.weekdayObject(resettedDate,language))
             resettedDate.setDate(resettedDate.getDate() + 1)
         }
         // --- fillers after
         while(get.weekdayObject(resettedDate,language).indexStartingMonday !== 0){
-            fill(true, resettedDate.getDate(), helper.padTo2Digits(resettedDate.getDate()), get.weekdayObject(resettedDate,language))
+            fill(true, resettedDate.getDate() as Day, helper.padTo2Digits(resettedDate.getDate()), get.weekdayObject(resettedDate,language))
             resettedDate.setDate(resettedDate.getDate() + 1)
         }
         return days
@@ -417,14 +417,53 @@ const span = {
 }
 
 /**
+ * @remarks Function Group to compare two Dates
+ */
+const compare = {
+    isSameYear: (dateFirst: Date, dateSecond: Date = create.dateNow()): boolean => {
+        return dateFirst.getFullYear() === dateSecond.getFullYear();
+    },
+    isSameExactMonth: (dateFirst: Date, dateSecond: Date = create.dateNow()): boolean => {
+        return (
+            dateFirst.getFullYear() === dateSecond.getFullYear() &&
+            dateFirst.getMonth() === dateSecond.getMonth()
+        )
+    },
+    isSameMonth: (dateFirst: Date, dateSecond: Date = create.dateNow()): boolean => {
+        return dateFirst.getMonth() === dateSecond.getMonth()
+    },
+    isSameExactDay: (dateFirst: Date, dateSecond: Date = create.dateNow()): boolean => {
+        return (
+            dateFirst.getFullYear() === dateSecond.getFullYear() &&
+            dateFirst.getMonth() === dateSecond.getMonth() &&
+            dateFirst.getDate() === dateSecond.getDate()
+        )
+    },
+    isSameDay: (dateFirst: Date, dateSecond: Date = create.dateNow()): boolean => {
+        return dateFirst.getDate() === dateSecond.getDate()
+    },
+    isSameExactTime: (dateFirst: Date, dateSecond: Date = create.dateNow()): boolean => {
+        return dateFirst.valueOf() === dateSecond.valueOf()
+    },
+    isSameTime: (dateFirst: Date, dateSecond: Date = create.dateNow()): boolean => {
+        return (
+            dateFirst.getHours() === dateSecond.getHours() &&
+            dateFirst.getMinutes() === dateSecond.getMinutes() &&
+            dateFirst.getSeconds() === dateSecond.getSeconds() &&
+            dateFirst.getMilliseconds() === dateSecond.getMilliseconds()
+        )
+    }
+}
+
+/**
  *@remarks Function to check if package is working
  */
 const check = () =>  {
-    console.log('🤝 datenow-ts 2.1.1 has sucessfully been installed')
+    console.log('🤝 datenow-ts 2.2.0 has sucessfully been installed')
     console.log('🫀 import a function group to start working with your dates')
     console.log('👀 explore everything datenow-ts has to offer by reading the docs')
     console.log('✉️ feedback: privat@lea-moser.ch')
 }
 
 // -> exports
-export { create, format, get, modify, until, span, helper, check }
+export { create, format, get, modify, until, span, compare, helper, check }

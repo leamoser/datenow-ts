@@ -1,6 +1,6 @@
 # datenow-ts
 
-![picture alt](https://img.shields.io/badge/Version-2.1.1-00b3b0?style=flat-square "Current Version")
+![picture alt](https://img.shields.io/badge/Version-2.2.0-00b3b0?style=flat-square "Current Version")
 
 The pain of my life has been working with dates in JavaScript.
 That's why I wrote this little library, to help you working with dates and time in JavaScript and TypeScript.
@@ -40,14 +40,15 @@ the package.
 > The whole package is destructured into six function groups you can use.
 > The following table explains all of the six groups.
 
-| group                   | what it does                                                                                            |
-|-------------------------|---------------------------------------------------------------------------------------------------------|
-| [``create``](#-create)  | Functions for creating dates in multiple ways.                                                          |
-| [``format`` ](#-format) | Functions for formatting dates in certain ways.                                                         |
-| [``get``](#-get)        | Functions for getting parts of a date, e.g. the month in a certain language.                            |
-| [``modify``](#-modify)  | Functions for modifying dates, e.g. adding x months to a date.                                          |
-| [``until``](#-until)    | Functions for calclating durations between two dates.                                                   |
-| [``span``](#-span)      | Functions for getting informations about the span between two dates, e.g. all months between two dates. |
+| group                    | what it does                                                                                            |
+|--------------------------|---------------------------------------------------------------------------------------------------------|
+| [``create``](#-create)   | Functions for creating dates in multiple ways.                                                          |
+| [``format`` ](#-format)  | Functions for formatting dates in certain ways.                                                         |
+| [``get``](#-get)         | Functions for getting parts of a date, e.g. the month in a certain language.                            |
+| [``modify``](#-modify)   | Functions for modifying dates, e.g. adding x months to a date.                                          |
+| [``until``](#-until)     | Functions for calclating durations between two dates.                                                   |
+| [``span``](#-span)       | Functions for getting informations about the span between two dates, e.g. all months between two dates. |
+| [``compare``](#-compare) | Functions for comparing two dates                                                                       |
 
 ## ✍️ create
 
@@ -282,6 +283,44 @@ const to = create.dateByDatestring('2024-04-07')
 console.log('array with months between', span.months(from, to))
 // returns array with all months between -> [ {index: 1, number: 2, short: 'Feb', long: 'February', year: 2023 }, {index: 2, number: 3, short: 'Mar', long: 'March', year: 2023 }, ... ] 
 ```
+
+## 👯 compare
+
+To use the functions provided under this category, implement them as follows:
+
+```javascript
+const {compare} = require('datenow-ts')
+// or
+import {compare} from 'datenow-ts'
+```
+
+Functions under this category compare two dates with each otgher and return
+a boolean value if a condition meets. The following conditions can be compared:
+
+| Function                                    | Checks if the two dates have...        |
+|---------------------------------------------|----------------------------------------|
+| ``isSameYear``(dateFirst, dateSecond)       | ... the same year                      |
+| ``isSameExactMonth``(dateFirst, dateSecond) | ... the same year and month            |
+| ``isSameMonth``(dateFirst, dateSecond)      | ... the same month                     |
+| ``isSameExactDay``(dateFirst, dateSecond)   | ... the same year, month and day       |
+| ``isSameDay``(dateFirst, dateSecond)        | ... the same day                       |
+| ``isSameExactTime``(dateFirst, dateSecond)  | ... the same year, month, day and time |
+| ``isSameTime``(dateFirst, dateSecond)       | ... the same time                      |
+
+This example shows how to use these functions:
+
+```javascript
+import { create, compare } from 'datenow-ts'
+const dateFirst = create.dateByDatestring('2023-01-05')
+const dateSecond = create.dateByDatestring('2022-01-10')
+
+console.log(compare.isSameMonth(dateFirst, dateSecond))
+// -> returns true, as the two months are the same
+```
+
+The second parameter is optional. 
+If no parameter is passed, the first date will be compared to 
+the current date and time.
 
 # 🌐 Translations
 
