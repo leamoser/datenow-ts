@@ -307,6 +307,7 @@ a boolean value if a condition meets. The following conditions can be compared:
 | ``isSameExactTime``(dateFirst, dateSecond)  | ... the same year, month, day and time |
 | ``isSameTime``(dateFirst, dateSecond)       | ... the same time                      |
 
+
 This example shows how to use these functions:
 
 ```javascript
@@ -334,6 +335,7 @@ The following languages are already implemented:
 | Italiano          | it            |
 | Nederlands        | nl            |
 | Ελληνική          | el            |
+
 
 All functions that return anything where anything needs to be translated, the last parameter is the language code.
 If no language code is passed, the default language (in this case english) is set.
