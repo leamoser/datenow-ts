@@ -217,7 +217,7 @@ Reserved letters will be parsed, everything else will act as seperators.
 - ``D`` Weekday short
 - ``l`` Weekday long
 
-## 👵 until
+## > until
 
 To use the functions provided under this category, implement them as follows:
 
