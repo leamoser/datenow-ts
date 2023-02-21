@@ -459,7 +459,7 @@ const compare = {
  *@remarks Function to check if package is working
  */
 const check = () =>  {
-    console.log('🤝 datenow-ts 2.2.0 has sucessfully been installed')
+    console.log('🤝 datenow-ts 2.3.0 has sucessfully been installed')
     console.log('🫀 import a function group to start working with your dates')
     console.log('👀 explore everything datenow-ts has to offer by reading the docs')
     console.log('✉️ feedback: privat@lea-moser.ch')
