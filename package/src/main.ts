@@ -399,15 +399,15 @@ const span = {
         }
         return years
     },
-    months: (dateFrom: Date, dateTo: Date, language: Languages = defaultLanguage): any[] => {
-        const FROM = new Date(dateFrom.getFullYear(), dateFrom.getMonth())
+    months: (dateFrom: Date, dateTo: Date, language: Languages = defaultLanguage): YearMonthObject[] => {
+        let FROM = new Date(dateFrom.getFullYear(), dateFrom.getMonth())
         const TO = new Date(dateTo.getFullYear(), dateTo.getMonth())
         const months = []
         while(FROM.getFullYear() !== TO.getFullYear() || FROM.getMonth() !== TO.getMonth()) {
             let obj: YearMonthObject = get.monthObject(FROM,language)
             obj.year = FROM.getFullYear()
             months.push(obj)
-            modify.month.add(FROM, 1)
+            FROM = modify.month.add(FROM, 1)
         }
         let obj: YearMonthObject = get.monthObject(FROM,language)
         obj.year = FROM.getFullYear()
@@ -459,7 +459,7 @@ const compare = {
  *@remarks Function to check if package is working
  */
 const check = () =>  {
-    console.log('🤝 datenow-ts 2.3.0 has sucessfully been installed')
+    console.log('🤝 datenow-ts 2.3.1 has sucessfully been installed')
     console.log('🫀 import a function group to start working with your dates')
     console.log('👀 explore everything datenow-ts has to offer by reading the docs')
     console.log('✉️ feedback: privat@lea-moser.ch')
